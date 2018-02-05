@@ -20,3 +20,4 @@ Exercice 3
 Dans minimal.c
 
 Exercice 4
+Dans minimal.c

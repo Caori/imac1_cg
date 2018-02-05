@@ -49,18 +49,19 @@ int main(int argc, char** argv) {
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
 
-            /* L'utilisateur ferme la fenêtre quand il appuie sur la touche q : */
+            /* L'utilisateur ferme la fenêtre quand il appuie sur la touche q*/
             if(e.type == SDL_KEYDOWN && e.key.keysym.sym == 'q') {
                 loop = 0;
                 break;
             }
 
+            /*la fenetre prend une couleur correspondant aux coordonnées du clic*/
             if(e.type == SDL_MOUSEBUTTONDOWN) {
               glClearColor(e.button.x/(float)WINDOW_WIDTH,
               e.button.y/(float)WINDOW_HEIGHT, 0, 1);
 
             }
-
+            /* same mais quand le curseur se déplace dans la fenêtre*/
             if(e.type == SDL_MOUSEMOTION) {
               glClearColor(e.button.x/(float)WINDOW_WIDTH,
               e.button.y/(float)WINDOW_HEIGHT, 0, 1);
