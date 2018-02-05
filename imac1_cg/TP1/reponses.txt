@@ -1,0 +1,22 @@
+Exercice 1
+
+API : Une API est une interface de programmation qui permet de se « brancher »
+sur une application pour échanger des données.
+OpenGL : une API graphique de 2d et 3d permettant de créer des images à partir
+de lignes de commande.
+SDL : une bibliothèque graphique
+Open Source : dont le code source peut être librement lu et modifié.
+
+Exercice 2
+
+1. Ces instructions servent à inclure des bibliothèques de fonctions pour pouvoir
+les utiliser dans le code.
+2.
+3. Il suffit de les inclure dans le Makefile
+4. Le programme ouvre une fenêtre vide.
+5. La fonction SDL_SetVideoMode sert à ouvrir une fenêtre en précisant ses dimensions.
+
+Exercice 3
+Dans minimal.c
+
+Exercice 4
