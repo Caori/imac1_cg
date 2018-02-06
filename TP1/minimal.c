@@ -14,6 +14,15 @@ static const unsigned int BIT_PER_PIXEL = 32;
 /* Nombre minimal de millisecondes separant le rendu de deux images */
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
+
+int tailleVirtuelle(WINDOW_WIDTH, WINDOW_HEIGHT) {
+  glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluOrtho2D(-1., 1., -1., 1.);
+}
+
+
 int main(int argc, char** argv) {
 
     /* Initialisation de la SDL */
@@ -59,12 +68,17 @@ int main(int argc, char** argv) {
             if(e.type == SDL_MOUSEBUTTONDOWN) {
               glClearColor(e.button.x/(float)WINDOW_WIDTH,
               e.button.y/(float)WINDOW_HEIGHT, 0, 1);
-
             }
             /* same mais quand le curseur se déplace dans la fenêtre*/
             if(e.type == SDL_MOUSEMOTION) {
               glClearColor(e.button.x/(float)WINDOW_WIDTH,
               e.button.y/(float)WINDOW_HEIGHT, 0, 1);
+            }
+
+            /*si on redimentionne la fenêtre*/
+            if(e.type == SDL_VIDEORESIZE) {
+              tailleVirtuelle();
+
             }
 
             /* Quelques exemples de traitement d'evenements : */
