@@ -1,11 +1,11 @@
 CC       =  gcc
 CFLAGS   = -Wall -O2 -g
-LIB      = -lSDL -lGLU -lGL -lm
-INCLUDES =
+LIB      = -lSDL -lGLU -lGL -lm  
+INCLUDES = 
 
-OBJ      = dessin.o
+OBJ      = minimal.o 
 RM       = rm -f
-BIN      = dessin
+BIN      = minimal
 DIRNAME  = $(shell basename $$PWD)
 BACKUP   = $(shell date +`basename $$PWD`-%m.%d.%H.%M.tgz)
 STDNAME  = $(DIRNAME).tgz
@@ -18,19 +18,21 @@ $(BIN) : $(OBJ)
 	@echo "                 to execute type: ./$(BIN) &"
 	@echo "--------------------------------------------------------------"
 
-dessin.o : dessin.c
-	@echo "compile dessin"
-	$(CC) $(CFLAGS) -c $<
+minimal.o : minimal.c
+	@echo "compile minimal"
+	$(CC) $(CFLAGS) -c $<  
 	@echo "done..."
 
-clean :
+clean :	
 	@echo "**************************"
 	@echo "CLEAN"
 	@echo "**************************"
-	$(RM) *~ $(OBJ) $(BIN)
+	$(RM) *~ $(OBJ) $(BIN) 
 
-tar : clean
+tar : clean 
 	@echo "**************************"
 	@echo "TAR"
 	@echo "**************************"
 	cd .. && tar cvfz $(BACKUP) $(DIRNAME)
+
+

@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 /* Dimensions de la fenêtre */
-static unsigned int WINDOW_WIDTH = 400.0;
-static unsigned int WINDOW_HEIGHT = 400.0;
+int WINDOW_WIDTH = 400.0;
+int WINDOW_HEIGHT = 400.0;
 
 /* Nombre de bits par pixel de la fenêtre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -15,11 +15,14 @@ static const unsigned int BIT_PER_PIXEL = 32;
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
 
-int tailleVirtuelle(WINDOW_WIDTH, WINDOW_HEIGHT) {
-  glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+void tailleVirtuelle(int newWidth, int newHeight) { /*les valeurs passées sont bonnes*/
+  printf("New width: %d  New height: %d\n", newWidth, newHeight);
+  printf("Window resizing\n");
+  glViewport(0, 0, newWidth, newHeight); /*mais la couleur s'étend pas*/
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluOrtho2D(-1., 1., -1., 1.);
+
 }
 
 
@@ -68,35 +71,40 @@ int main(int argc, char** argv) {
             if(e.type == SDL_MOUSEBUTTONDOWN) {
               glClearColor(e.button.x/(float)WINDOW_WIDTH,
               e.button.y/(float)WINDOW_HEIGHT, 0, 1);
+              break;
             }
             /* same mais quand le curseur se déplace dans la fenêtre*/
             if(e.type == SDL_MOUSEMOTION) {
               glClearColor(e.button.x/(float)WINDOW_WIDTH,
               e.button.y/(float)WINDOW_HEIGHT, 0, 1);
+              break;
             }
 
             /*si on redimentionne la fenêtre*/
             if(e.type == SDL_VIDEORESIZE) {
-              tailleVirtuelle();
-
+              WINDOW_WIDTH = e.resize.w;
+              WINDOW_HEIGHT = e.resize.h;
+              tailleVirtuelle(WINDOW_WIDTH, WINDOW_HEIGHT);
+              break;
             }
 
-            /* Quelques exemples de traitement d'evenements : */
+
+            /* Quelques exemples de traitement d'evenements :
             switch(e.type) {
 
-                /* Clic souris */
+                /* Clic souris
                 case SDL_MOUSEBUTTONUP:
                     printf("clic en (%d, %d)\n", e.button.x, e.button.y);
                     break;
 
-                /* Touche clavier */
+                /* Touche clavier
                 case SDL_KEYDOWN:
                     printf("touche pressée (code = %d)\n", e.key.keysym.sym);
                     break;
 
                 default:
                     break;
-            }
+            }*/
         }
 
         /* Calcul du temps écoulé */
