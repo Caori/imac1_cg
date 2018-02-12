@@ -3,6 +3,9 @@
 #include <GL/glu.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+
+#define NB_COTES_CERCLE 10
 
 /*#include "list.h"*/
 
@@ -39,13 +42,33 @@ void setVideoMode() {
 
 
 void drawSquare(int x, int y) {
-  printf("%d, %d\n", x, y);
   glBegin(GL_QUADS);
     glColor3ub(255, 0, 0);
     glVertex2f((-1 + 2.*x/WINDOW_WIDTH) -0.1, (-(-1 + 2. *y/WINDOW_HEIGHT)) -0.1);
     glVertex2f((-1 + 2.*x/WINDOW_WIDTH) -0.1, (- (-1 + 2. *y/WINDOW_HEIGHT)) +0.1);
     glVertex2f((-1 + 2.*x/WINDOW_WIDTH) +0.1, (- (-1 + 2. * y/WINDOW_HEIGHT)) +0.1);
     glVertex2f((-1 + 2.*x/WINDOW_WIDTH) +0.1, (- (-1 + 2. * y/WINDOW_HEIGHT)) -0.1);
+  glEnd();
+}
+
+void drawLandmark() {
+  glBegin(GL_LINES);
+    glColor3ub(0, 255, 0);
+    glVertex2f(-0.1, 0);
+    glVertex2f(0.1, 0);
+    glColor3ub(255, 0, 0);
+    glVertex2f(0, -0.1);
+    glVertex2f(0, 0.1);
+  glEnd();
+}
+
+void drawCircle(int x, int y) {
+  glBegin(GL_LINES);
+    glColor3ub(255, 0, 0);
+    for(int i = 0; i < NB_COTES_CERCLE; i++) {
+      glVertex2f((cos(2*3.14159*i/NB_COTES_CERCLE))/10, (sin(2*3.14159*i/NB_COTES_CERCLE))/10);
+      glVertex2f((cos(2*3.14159*(i+1)/NB_COTES_CERCLE))/10, (sin(2*3.14159*(i+1)/NB_COTES_CERCLE))/10);
+    }
   glEnd();
 }
 
@@ -96,16 +119,16 @@ int main(int argc, char** argv) {
               case 1:
                 drawSquare(e.button.x, e.button.y);
                 break;
-              /*case 2:
-                drawLandmark(e.button.x, e.button.y);
+              case 2:
+                drawLandmark();
                 break;
               case 3:
                 drawCircle(e.button.x, e.button.y);
-                break;*/
+                break;
             }
           }
+          SDL_GL_SwapBuffers();
         }
-        SDL_GL_SwapBuffers();
       }
   /* Liberation des ressources associées à la SDL */
     SDL_Quit();
