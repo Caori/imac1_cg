@@ -11,8 +11,8 @@
 
 
 /* Dimensions de la fenêtre */
-float WINDOW_WIDTH = 400.0;
-float WINDOW_HEIGHT = 400.0;
+float WINDOW_WIDTH = 800.0;
+float WINDOW_HEIGHT = 600.0;
 
 /* Nombre de bits par pixel de la fenêtre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -25,7 +25,7 @@ void tailleVirtuelle() {
   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluOrtho2D(-1., 1., -1., 1.);
+  gluOrtho2D(-4., 4., -3., 3.);
 }
 
 
@@ -41,9 +41,8 @@ void setVideoMode() {
 }
 
 
-void drawSquare(int x, int y) {
+void drawSquare() {
   glBegin(GL_QUADS);
-    glColor3ub(0, 0, 255);
     /*pour centrer le carré sur l'endroit ou on clique
     glVertex2f((-1 + 2.*x/WINDOW_WIDTH) -0.1, (-(-1 + 2. *y/WINDOW_HEIGHT)) -0.1);
     glVertex2f((-1 + 2.*x/WINDOW_WIDTH) -0.1, (- (-1 + 2. *y/WINDOW_HEIGHT)) +0.1);
@@ -59,18 +58,17 @@ void drawSquare(int x, int y) {
 
 void drawLandmark() {
   glBegin(GL_LINES);
-    glColor3ub(0, 255, 0);
-    glVertex2f(-0.1, 0);
-    glVertex2f(0.1, 0);
     glColor3ub(255, 0, 0);
-    glVertex2f(0, -0.1);
-    glVertex2f(0, 0.1);
+    glVertex2f(0, 0);
+    glVertex2f(1, 0);
+    glColor3ub(0, 255, 0);
+    glVertex2f(0, 0);
+    glVertex2f(0, 1);
   glEnd();
 }
 
-void drawCircle(int x, int y) {
+void drawCircle() {
   glBegin(GL_LINES);
-    glColor3ub(255, 0, 0);
     float pi = 3.14159;
     for(int i = 0; i < NB_COTES_CERCLE; i++) {
       glVertex2f((cos(2*pi*i/NB_COTES_CERCLE)), (sin(2*pi*i/NB_COTES_CERCLE)));
@@ -96,11 +94,40 @@ int main(int argc, char** argv) {
     SDL_WM_SetCaption("Formes canoniques", NULL);
 
     /* Boucle d'affichage */
-    int mode = 0;
     int loop = 1;
     while(loop) {
 
       /* Placer ici le code de dessin */
+      glColor3ub(255, 0, 0);
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+      drawLandmark();
+
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+      glTranslatef(1,2,0);
+      glColor3ub(200, 100, 0);
+      drawCircle();
+
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+      glColor3ub(255, 0, 0);
+      glTranslatef(2,0,0);
+      glRotatef(45, 0.0, 0.0, 1.0);
+      drawSquare();
+
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+      glColor3ub(150, 0, 105);
+      glRotatef(45, 0.0, 0.0, 1.0);
+      glTranslatef(2,0,0);
+      drawSquare();
+
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+      glColor3ub(120, 110, 0);
+      drawSquare();
+
       SDL_Event e;
       while(SDL_PollEvent(&e)) {
         /* fermer la fenêtre*/
@@ -109,31 +136,17 @@ int main(int argc, char** argv) {
           break;
         }
 
-        if(e.type == SDL_KEYUP) {
-            if(e.key.keysym.sym == SDLK_s)  /* mode carré */
-              mode = 1;
-            if(e.key.keysym.sym == SDLK_l)  /* mode repère */
-              mode = 2;
-            if(e.key.keysym.sym == SDLK_c)  /* mode cercle */
-              mode = 3;
-        }
-
         if(e.type == SDL_MOUSEBUTTONDOWN) {
-            switch(mode) {
-              case 1:
-                drawSquare(e.button.x, e.button.y);
-                break;
-              case 2:
-                drawLandmark();
-                break;
-              case 3:
-                drawCircle(e.button.x, e.button.y);
-                break;
-            }
-          }
-          SDL_GL_SwapBuffers();
+          glMatrixMode(GL_MODELVIEW);
+          glLoadIdentity();
+          glColor3ub(120, 110, 0);
+          glTranslatef(e.button.x,e.button.y, 0);
+          printf("%d, %d\n", e.button.x, e.button.y);
+          drawSquare();
         }
+          SDL_GL_SwapBuffers();
       }
+    }
   /* Liberation des ressources associées à la SDL */
     SDL_Quit();
     return EXIT_SUCCESS;
