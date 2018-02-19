@@ -37,7 +37,7 @@ void setVideoMode() {
 
   tailleVirtuelle();
 
-  glClear(GL_COLOR_BUFFER_BIT);
+
 }
 
 
@@ -85,9 +85,6 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    /* Désactivation du double buffering */
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
-
     setVideoMode();
 
     /* Titre de la fenêtre */
@@ -96,6 +93,7 @@ int main(int argc, char** argv) {
     /* Boucle d'affichage */
     int loop = 1;
     while(loop) {
+      /*glClear(GL_COLOR_BUFFER_BIT);*/
 
       /* Placer ici le code de dessin */
       glColor3ub(255, 0, 0);
@@ -137,15 +135,14 @@ int main(int argc, char** argv) {
         }
 
         if(e.type == SDL_MOUSEBUTTONDOWN) {
-          glMatrixMode(GL_MODELVIEW);
-          glLoadIdentity();
-          glColor3ub(120, 110, 0);
-          glTranslatef(e.button.x,e.button.y, 0);
-          printf("%d, %d\n", e.button.x, e.button.y);
+          float x = (e.button.x/WINDOW_WIDTH)*8 - 4;
+          float y = (e.button.y/WINDOW_HEIGHT)*6 - 3;
+          glTranslatef(x, -y, 0);
+          printf("%f, %f\n", x, y);
           drawSquare();
         }
-          SDL_GL_SwapBuffers();
       }
+        SDL_GL_SwapBuffers();
     }
   /* Liberation des ressources associées à la SDL */
     SDL_Quit();
