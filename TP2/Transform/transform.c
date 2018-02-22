@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 #define NB_COTES_CERCLE 100
 
@@ -77,6 +78,10 @@ void drawCircle() {
   glEnd();
 }
 
+double frand_a_b(double a, double b){
+  return ( rand()/(double)RAND_MAX ) * (b-a) + a;
+}
+
 
 int main(int argc, char** argv) {
     /* Initialisation de la SDL */
@@ -123,6 +128,14 @@ int main(int argc, char** argv) {
 
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
+      glColor3ub(150, 0, 105);
+      glScalef(0.5,0.5,0);
+      srand(time(NULL));
+      glTranslatef(frand_a_b(-5, 5),frand_a_b(-5, 5),0);
+      drawCircle();
+
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
       glColor3ub(120, 110, 0);
       drawSquare();
 
@@ -134,12 +147,23 @@ int main(int argc, char** argv) {
           break;
         }
 
-        if(e.type == SDL_MOUSEBUTTONDOWN) {
+        if(e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
           float x = (e.button.x/WINDOW_WIDTH)*8 - 4;
           float y = (e.button.y/WINDOW_HEIGHT)*6 - 3;
           glTranslatef(x, -y, 0);
           printf("%f, %f\n", x, y);
           drawSquare();
+        }
+        if(e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
+          printf("clic droit\n");
+          if(e.type == SDL_MOUSEBUTTONDOWN && e.type == SDL_MOUSEMOTION) { //marche pas ???
+            printf("la souris bouge\n");
+            float x = (e.button.x/WINDOW_WIDTH)*8 - 4;
+            float y = (e.button.y/WINDOW_HEIGHT)*6 - 3;
+            glRotatef(x, 0.0, 0.0, 1.0);
+            printf("%f, %f\n", x, y);
+            drawSquare();
+          }
         }
       }
         SDL_GL_SwapBuffers();
