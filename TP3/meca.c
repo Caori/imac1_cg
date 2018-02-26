@@ -9,8 +9,8 @@
 
 
 /* Dimensions de la fenêtre */
-float WINDOW_WIDTH = 800.0;
-float WINDOW_HEIGHT = 800.0;
+float WINDOW_WIDTH = 1000.0;
+float WINDOW_HEIGHT = 1000.0;
 
 /* Nombre de bits par pixel de la fenêtre */
 static const unsigned int BIT_PER_PIXEL = 32;
@@ -23,7 +23,7 @@ void tailleVirtuelle() {
   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluOrtho2D(-100., 100., -100., 100.);
+  gluOrtho2D(-150., 150., -150., 150.);
 }
 
 
@@ -191,9 +191,14 @@ int main() {
     glPushMatrix();
       glRotatef(45, 0.0, 0.0, 1.0);
       drawFirstArm();
+      glTranslatef(50, -4, 0);
+      glRotatef(-10, 0.0, 0.0, 1.0);
+      drawSecondArm();
+      glTranslatef(34, 10, 0);
+      glRotatef(35, 0.0, 0.0, 1.0);
+      drawThirdArm();
     glPopMatrix();
-    drawSecondArm();
-    drawThirdArm();
+
 
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
