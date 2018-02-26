@@ -8,8 +8,6 @@
 
 #define NB_COTES_CERCLE 100
 
-/*#include "list.h"*/
-
 
 /* Dimensions de la fenêtre */
 float WINDOW_WIDTH = 800.0;

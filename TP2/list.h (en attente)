@@ -1,7 +1,0 @@
-#ifndef OPENGL_TP2_LIST
-#define OPENGL_TP2_LIST
-
-#include <GL/gl.h>
-
-
-#endif
