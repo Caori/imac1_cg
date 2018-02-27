@@ -184,18 +184,21 @@ int main() {
 
   /* Boucle d'affichage */
   int loop = 1;
+  int rotate1 = 45;
+  int rotate2 = -10;
+  int rotate3 = 35;
   while(loop) {
-    /*glClear(GL_COLOR_BUFFER_BIT);*/
+    glClear(GL_COLOR_BUFFER_BIT);
 
     /* Placer ici le code de dessin */
     glPushMatrix();
-      glRotatef(45, 0.0, 0.0, 1.0);
+      glRotatef(rotate1++, 0.0, 0.0, 1.0);
       drawFirstArm();
       glTranslatef(50, -4, 0);
-      glRotatef(-10, 0.0, 0.0, 1.0);
+      glRotatef(rotate2++, 0.0, 0.0, 1.0);
       drawSecondArm();
       glTranslatef(34, 10, 0);
-      glRotatef(35, 0.0, 0.0, 1.0);
+      glRotatef(rotate3++, 0.0, 0.0, 1.0);
       drawThirdArm();
     glPopMatrix();
 
