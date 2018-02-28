@@ -116,56 +116,67 @@ void drawRoundedSquare() {
 void drawFirstArm() {
   glColor3ub(255, 255, 0);
   glPushMatrix();
-    glTranslatef(-30, 0, 0);
-    glScalef(20, 20, 0);
-    drawCircle();
-  glPopMatrix();
+    glRotatef(45, 0.0, 0.0, 1.0);
     glPushMatrix();
-    glTranslatef(30, 0, 0);
-      glScalef(10, 10, 0);
+      glScalef(20, 20, 0);
       drawCircle();
     glPopMatrix();
-    glBegin(GL_LINES);
-      glVertex2f( -30, 20);
-      glVertex2f( 30, 10);
-      glVertex2f( -30, -20);
-      glVertex2f( 30, -10);
-    glEnd();
+      glPushMatrix();
+      glTranslatef(60, 0, 0);
+        glScalef(10, 10, 0);
+        drawCircle();
+      glPopMatrix();
+      glBegin(GL_LINES);
+        glVertex2f( 0, 20);
+        glVertex2f( 60, 10);
+        glVertex2f( 0, -20);
+        glVertex2f( 60, -10);
+      glEnd();
+    glPopMatrix();
 }
 
 void drawSecondArm() {
   glColor3ub(255, 0, 255);
   glPushMatrix();
-    glTranslatef(-20, 0, 0);
-    glScalef(10, 10, 0);
-    drawRoundedSquare();
+
+    glRotatef(-10, 0.0, 0.0, 1.0);
+    glPushMatrix();
+      glScalef(46, 6, 0);
+      drawSquare();
+    glPopMatrix();
+    glPushMatrix();
+      glTranslatef(-20, 0, 0);
+      glScalef(10, 10, 0);
+      drawRoundedSquare();
+    glPopMatrix();
+    glPushMatrix();
+      glTranslatef(20, 0, 0);
+      glScalef(10, 10, 0);
+      drawRoundedSquare();
+    glPopMatrix();
   glPopMatrix();
-  glPushMatrix();
-    glTranslatef(20, 0, 0);
-    glScalef(10, 10, 0);
-    drawRoundedSquare();
-  glPopMatrix();
-  glPushMatrix();
-    glScalef(46, 6, 0);
-    drawSquare();
-  glPopMatrix();
+
 }
 
 void drawThirdArm() {
   glColor3ub(0, 255, 255);
   glPushMatrix();
-    glTranslatef(-17, 0, 0);
-    glScalef(6, 6, 0);
-    drawRoundedSquare();
-  glPopMatrix();
-  glPushMatrix();
-    glScalef(40, 4, 0);
-    drawSquare();
-  glPopMatrix();
-  glPushMatrix();
-    glTranslatef(20, 0, 0);
-    glScalef(4, 4, 0);
-    drawFilledCircle();
+
+    glRotatef(35, 0.0, 0.0, 1.0);
+    glPushMatrix();
+      glScalef(40, 4, 0);
+      drawSquare();
+    glPopMatrix();
+    glPushMatrix();
+      glTranslatef(-20, 0, 0);
+      glScalef(6, 6, 0);
+      drawRoundedSquare();
+    glPopMatrix();
+    glPushMatrix();
+      glTranslatef(20, 0, 0);
+      glScalef(4, 4, 0);
+      drawFilledCircle();
+    glPopMatrix();
   glPopMatrix();
 
 }
@@ -187,19 +198,42 @@ int main() {
   int rotate1 = 45;
   int rotate2 = -10;
   int rotate3 = 35;
+  int rotate4 = -45;
+  int rotate5 = 5;
   while(loop) {
+    /*drawFirstArm();
+    drawSecondArm();
+    drawThirdArm();*/
+
     glClear(GL_COLOR_BUFFER_BIT);
 
-    /* Placer ici le code de dessin */
     glPushMatrix();
       glRotatef(rotate1++, 0.0, 0.0, 1.0);
       drawFirstArm();
-      glTranslatef(50, -4, 0);
-      glRotatef(rotate2++, 0.0, 0.0, 1.0);
-      drawSecondArm();
-      glTranslatef(34, 10, 0);
-      glRotatef(rotate3++, 0.0, 0.0, 1.0);
-      drawThirdArm();
+      glPushMatrix();
+        glTranslatef(42.5, 42.5, 0);
+        glRotatef(rotate2++, 0.0, 0, 1.0);
+        glTranslatef(20, -3, 0);
+        drawSecondArm();
+        glPushMatrix();
+          glTranslatef(20, -4, 0);
+          glRotatef(rotate3++, 0.0, 0.0, 1.0);
+          glTranslatef(17, 12, 0);
+          drawThirdArm();
+        glPopMatrix();
+        glPushMatrix();
+          glTranslatef(20, -4, 0);
+          glRotatef(rotate4+2, 0.0, 0.0, 1.0);
+          glTranslatef(17, 12, 0);
+          drawThirdArm();
+        glPopMatrix();
+        glPushMatrix();
+          glTranslatef(20, -4, 0);
+          glRotatef(rotate5+4, 0.0, 0.0, 1.0);
+          glTranslatef(17, 12, 0);
+          drawThirdArm();
+        glPopMatrix();
+      glPopMatrix();
     glPopMatrix();
 
 
