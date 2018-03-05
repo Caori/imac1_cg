@@ -49,12 +49,6 @@ void drawLandmark() {
 
 void drawSquare() {
   glBegin(GL_QUADS);
-    /*pour centrer le carré sur l'endroit ou on clique
-    glVertex2f((-1 + 2.*x/WINDOW_WIDTH) -0.1, (-(-1 + 2. *y/WINDOW_HEIGHT)) -0.1);
-    glVertex2f((-1 + 2.*x/WINDOW_WIDTH) -0.1, (- (-1 + 2. *y/WINDOW_HEIGHT)) +0.1);
-    glVertex2f((-1 + 2.*x/WINDOW_WIDTH) +0.1, (- (-1 + 2. * y/WINDOW_HEIGHT)) +0.1);
-    glVertex2f((-1 + 2.*x/WINDOW_WIDTH) +0.1, (- (-1 + 2. * y/WINDOW_HEIGHT)) -0.1);
-    */
     glVertex2f( -0.5, -0.5);
     glVertex2f( -0.5, +0.5);
     glVertex2f( +0.5, +0.5);

@@ -50,12 +50,12 @@ int main(int argc, char** argv) {
     //change la valeur du paramètre MIN_FILTER de la texure à GL_LINEAR
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    // Libération des données CPU
-    SDL_FreeSurface(image);
-
     //envoie les données à la carte graphique w:width h:height
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h,
     0, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
+
+    // Libération des données CPU
+    SDL_FreeSurface(image);
 
     //debind la texture
     glBindTexture(GL_TEXTURE_2D, 0);
