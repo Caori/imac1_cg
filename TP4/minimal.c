@@ -18,7 +18,7 @@ void resizeViewport() {
     SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE);
 }
 
-const char* filename = "logo_imac_400x400.jpg";
+const char* stars = "logo_imac_400x400.jpg";
 
 int main(int argc, char** argv) {
 
@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
     resizeViewport();
 
     // Chargement et traitement de la texture
-    SDL_Surface* image = IMG_Load("logo_imac_400x400.jpg");
+    SDL_Surface* image = IMG_Load(filename);
     if(image == NULL) {
       printf("Erreur lors du chargement de l'image.\n");
       exit(0);
